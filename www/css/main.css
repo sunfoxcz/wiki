@@ -1,0 +1,7 @@
+.breadcrumb li.pull-right:before {
+    content: '';
+}
+
+#wikiEditForm {
+    font-family: monospace;
+}

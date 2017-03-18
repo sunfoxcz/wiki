@@ -7,3 +7,8 @@ menu:
             wiki:
                 title: Wiki
                 target: Wiki:default
+                visual: FALSE
+            wikiEdit:
+                title: Wiki
+                target: WikiEdit:default
+                visual: FALSE

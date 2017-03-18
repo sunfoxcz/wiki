@@ -27,6 +27,7 @@ services:
 
     - App\Libs\Security\Authenticator
     - App\Forms\SignInFormFactory
+    - App\Forms\WikiEditFormFactory
 
 extensions:
     autoRegister: Ublaboo\DirectoryRegister\DI\AutoRegisterExtension

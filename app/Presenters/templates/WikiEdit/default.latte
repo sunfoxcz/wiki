@@ -1,0 +1,21 @@
+{block content}
+    <form n:name="wikiEditForm" id="wikiEditForm" class="form-horizontal">
+        <div class="form-group">
+            <textarea n:name="document" class="form-control" rows="25"></textarea>
+        </div>
+        <div class="form-group pull-right">
+            <input n:name="save" class="btn btn-primary">
+        </div>
+    </form>
+{/block}
+
+{block scripts}
+    {include #parent}
+    <script>
+        $('#wikiEditForm').keydown(function (e) {
+            if (e.altKey && e.keyCode === 13) {
+                this.submit();
+            }
+        });
+    </script>
+{/block}
