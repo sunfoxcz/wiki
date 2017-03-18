@@ -17,6 +17,12 @@
                 <a class="navbar-brand" n:href="Wiki:">Wiki</a>
             </div>
             {control menu}
+            <p class="navbar-text pull-right">
+                {if $user->isLoggedIn()}
+                    Signed in as {$user->getIdentity()->getName()}
+                    (<a n:href="Sign:out">sign out</a>)
+                {/if}
+            </p>
         </div>
     </nav>
 

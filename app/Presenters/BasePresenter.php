@@ -14,6 +14,18 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public $menuFactory;
 
     /**
+     * @param \Nette\Application\UI\ComponentReflection $element
+     */
+    public function checkRequirements($element)
+    {
+        parent::checkRequirements($element);
+
+        if (!$this->getUser()->isLoggedIn() && $this->getName() !== 'Sign') {
+            $this->redirect('Sign:in');
+        }
+    }
+
+    /**
      * @return \DK\Menu\UI\Control
      */
     protected function createComponentMenu()

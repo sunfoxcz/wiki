@@ -25,6 +25,9 @@ services:
     - League\CommonMark\DocParser
     - League\CommonMark\HtmlRenderer
 
+    - App\Libs\Security\Authenticator
+    - App\Forms\SignInFormFactory
+
 extensions:
     autoRegister: Ublaboo\DirectoryRegister\DI\AutoRegisterExtension
     nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
