@@ -3,12 +3,19 @@
 namespace App\Presenters;
 
 use App\Forms\WikiEditFormFactory;
+use App\Libs\Config;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Form;
 
 
 final class WikiEditPresenter extends BasePresenter
 {
+    /**
+     * @var Config
+     * @inject
+     */
+    public $config;
+
     /**
      * @var WikiEditFormFactory
      * @inject
@@ -44,20 +51,16 @@ final class WikiEditPresenter extends BasePresenter
             $this->redirect('Wiki:', $this->getParameter('page'));
         };
 
-        return $this->wikiEditFormFactory->create($this->getParameter('page', 'Wiki'), $this->document);
+        return $this->wikiEditFormFactory->create($this->getParameter('page'), $this->document);
     }
 
     public function actionDefault($page = NULL)
     {
-        if ($page === NULL) {
-            $page = 'Wiki';
-        }
-
-        $file = __DIR__ . "/../../pages/{$page}.md";
+        $file = $this->config->getPageFilePath($page);
         if (!is_file($file)) {
             throw new BadRequestException;
         }
 
-        $this->document = file_get_contents(__DIR__ . "/../../pages/{$page}.md");
+        $this->document = file_get_contents($file);
     }
 }

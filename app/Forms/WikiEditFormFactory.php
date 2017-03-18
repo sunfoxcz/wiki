@@ -2,6 +2,7 @@
 
 namespace App\Forms;
 
+use App\Libs\Config;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
@@ -20,8 +21,18 @@ final class WikiEditFormFactory
      */
     public $onSave = [];
 
+    /**
+     * @var Config
+     */
+    private $config;
 
-    public function create(string $page, string $document): Form
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
+    public function create(?string $page, string $document): Form
     {
         $form = new Form;
         $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)
@@ -44,11 +55,7 @@ final class WikiEditFormFactory
 
     public function formSuccess(Form $form, ArrayHash $values)
     {
-        if (!$values->page) {
-            $values->page = 'Wiki';
-        }
-
-        $file = __DIR__ . "/../../pages/{$values->page}.md";
+        $file = $this->config->getPageFilePath($values->page);
         Nette\Utils\FileSystem::write($file, $values->document);
 
         $this->onSave();

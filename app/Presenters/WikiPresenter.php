@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Libs\Config;
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocParser;
 use League\CommonMark\HtmlRenderer;
@@ -10,6 +11,12 @@ use Nette\Application\BadRequestException;
 
 final class WikiPresenter extends BasePresenter
 {
+    /**
+     * @var Config
+     * @inject
+     */
+    public $config;
+
     /**
      * @var DocParser
      * @inject
@@ -48,16 +55,12 @@ final class WikiPresenter extends BasePresenter
 
     public function actionDefault($page = NULL)
     {
-        if ($page === NULL) {
-            $page = 'Wiki';
-        }
-
-        $file = __DIR__ . "/../../pages/{$page}.md";
+        $file = $this->config->getPageFilePath($page);
         if (!is_file($file)) {
             throw new BadRequestException;
         }
 
-        $markdown = file_get_contents(__DIR__ . "/../../pages/{$page}.md");
+        $markdown = file_get_contents($file);
         $this->document = $this->docParser->parse($markdown);
     }
 

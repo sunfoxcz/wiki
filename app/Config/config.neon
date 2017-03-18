@@ -1,4 +1,8 @@
 parameters:
+    config:
+        dataDir: %appDir%/../data
+        pageDir: %appDir%/../data/pages
+        defaultPage: Wiki
 
 application:
     errorPresenter: Error
@@ -25,6 +29,7 @@ services:
     - League\CommonMark\DocParser
     - League\CommonMark\HtmlRenderer
 
+    - App\Libs\Config( %config% )
     - App\Libs\Security\Authenticator
     - App\Forms\SignInFormFactory
     - App\Forms\WikiEditFormFactory

@@ -21,7 +21,7 @@ final class Authenticator implements IAuthenticator
 
     public function __construct(Container $container)
     {
-        $this->userConfigFile = $container->expand('%appDir%/Config/users.neon');
+        $this->userConfigFile = $container->expand('%appDir%/../data/users.neon');
     }
 
     /**
