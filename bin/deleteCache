@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -rf temp/cache
+rm -rf temp/proxies
+rm -rf temp/sessions
+rm -f temp/btfj.dat

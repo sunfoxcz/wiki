@@ -1,0 +1,9 @@
+<ol class="breadcrumb">
+    <li n:foreach="$menu->getPath() as $item">
+        {if $item->hasItems()}
+            <a href="{$item->getLink()}">{$item->getTranslatedTitle()}</a>
+        {else}
+            {$item->getTranslatedTitle()}
+        {/if}
+    </li>
+</ol>

@@ -1,0 +1,18 @@
+<ul class="nav navbar-nav" n:if="$menu->hasVisualItems()">
+    {foreach $menu->getItems() as $item}
+        {if $item->hasVisualItems()}
+            <li n:class="dropdown, $item->isActive() ? active">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{$item->getTranslatedTitle()} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li n:foreach="$item->getItems() as $subitem" n:if="$subitem->isVisual() && $subitem->isAllowed()" n:class="$subitem->isActive() ? active">
+                        <a href="{$subitem->getLink()}">{$subitem->getTranslatedTitle()}</a>
+                    </li>
+                </ul>
+            </li>
+        {else}
+            <li n:if="$item->isVisual() && $item->isAllowed()" n:class="$item->isActive() ? active">
+                <a href="{$item->getLink()}">{$item->getTranslatedTitle()}</a>
+            </li>
+        {/if}
+    {/foreach}
+</ul>

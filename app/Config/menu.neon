@@ -1,0 +1,9 @@
+menu:
+    default:
+        template:
+            menu: %appDir%/Components/Menu/menu.latte
+            breadcrumb: %appDir%/Components/Menu/breadcrumb.latte
+        items:
+            wiki:
+                title: Wiki
+                target: Wiki:default
