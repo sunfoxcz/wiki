@@ -2,6 +2,7 @@ parameters:
     config:
         dataDir: %appDir%/../data
         pageDir: %appDir%/../data/pages
+        userDir: %appDir%/../data/users
         defaultPage: Wiki
 
 application:
@@ -31,7 +32,9 @@ services:
 
     - App\Libs\Config( %config% )
     - App\Libs\Security\Authenticator
+    - App\Libs\Security\UserManager
     - App\Forms\SignInFormFactory
+    - App\Forms\UserCreateFormFactory
     - App\Forms\WikiEditFormFactory
 
 extensions:

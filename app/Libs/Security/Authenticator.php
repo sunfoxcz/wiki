@@ -2,26 +2,23 @@
 
 namespace App\Libs\Security;
 
-use Nette\DI\Container;
-use Nette\Neon\Neon;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\IIdentity;
 use Nette\Security\Passwords;
-use Nette\Utils\FileSystem;
 
 
 final class Authenticator implements IAuthenticator
 {
     /**
-     * @var string
+     * @var UserManager
      */
-    private $userConfigFile;
+    private $userManager;
 
 
-    public function __construct(Container $container)
+    public function __construct(UserManager $userManager)
     {
-        $this->userConfigFile = $container->expand('%appDir%/../data/users.neon');
+        $this->userManager = $userManager;
     }
 
     /**
@@ -34,24 +31,18 @@ final class Authenticator implements IAuthenticator
     {
         list($username, $password) = $credentials;
 
-        if (!is_file($this->userConfigFile)) {
-            throw new AuthenticationException('Users config does not exist.');
-        }
-
-        $userConfig = Neon::decode(FileSystem::read($this->userConfigFile));
-        $user = &$userConfig['users'][$username];
-
-        if (!isset($user)) {
+        try {
+            $data = $this->userManager->getData($username);
+        } catch (UserNotFoundException $e) {
             throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
-        } elseif (!Passwords::verify($password, $user['password'])) {
-            throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
-        } elseif (Passwords::needsRehash($user['password'])) {
-            // TODO: Neon:encode() returns JSON instead of NEON
-            // $user['password'] = Passwords::hash($password);
-            // $neon = Neon::encode($userConfig);
-            // FileSystem::write($this->userConfigFile, $neon);
         }
 
-        return new User($username, $user['name'], $user['roles']);
+        if (!Passwords::verify($password, $data['password'])) {
+            throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
+        } elseif (!Passwords::needsRehash($data['password'])) {
+            $this->userManager->changePassword($username, $password);
+        }
+
+        return $this->userManager->getUser($username);
     }
 }

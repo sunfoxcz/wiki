@@ -12,3 +12,7 @@ menu:
                 title: Wiki
                 target: WikiEdit:default
                 visual: FALSE
+            userCreate:
+                title: Create user
+                target: UserCreate:default
+                visual: FALSE

@@ -8,6 +8,7 @@ use Nette\Utils\ArrayHash;
 /**
  * @property string $dataDir
  * @property string $pageDir
+ * @property string $userDir
  * @property string $defaultPage
  */
 final class Config extends ArrayHash
@@ -36,5 +37,10 @@ final class Config extends ArrayHash
         }
 
         return vsprintf('%s/%s.md', [$this->pageDir, $wikiPath]);
+    }
+
+    public function getUserFilePath(string $username): string
+    {
+        return vsprintf('%s/%s.neon', [$this->userDir, $username]);
     }
 }
