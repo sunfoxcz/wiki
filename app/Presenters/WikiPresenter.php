@@ -57,7 +57,7 @@ final class WikiPresenter extends BasePresenter
     {
         $file = $this->config->getPageFilePath($page);
         if (!is_file($file)) {
-            throw new BadRequestException;
+            $this->redirect('WikiEdit:', $page);
         }
 
         $markdown = file_get_contents($file);

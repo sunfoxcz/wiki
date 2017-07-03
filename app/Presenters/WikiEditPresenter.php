@@ -57,10 +57,6 @@ final class WikiEditPresenter extends BasePresenter
     public function actionDefault($page = NULL)
     {
         $file = $this->config->getPageFilePath($page);
-        if (!is_file($file)) {
-            throw new BadRequestException;
-        }
-
-        $this->document = file_get_contents($file);
+        $this->document = is_file($file) ? file_get_contents($file) : '';
     }
 }
