@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Forms\WikiEditFormFactory;
 use App\Libs\Config;
-use Nette\Application\BadRequestException;
+use Carrooi\Menu\IMenuItem;
 use Nette\Application\UI\Form;
 
 
@@ -40,8 +40,11 @@ final class WikiEditPresenter extends BasePresenter
         $currentMenu = $this->getMenu()->getItem('wikiEdit');
         foreach (explode('/', $page) as $level) {
             $path[] = $level;
-            $currentMenu = $currentMenu->addItem($level, 'WikiEdit:default', ['page' => implode('/', $path)])
-                ->setVisual(FALSE);
+            $currentMenu->addItem($level, $level, function(IMenuItem $item) use ($path) {
+                $item->setMenuVisibility(FALSE);
+                $item->setAction('WikiEdit:default', ['page' => implode('/', $path)]);
+            });
+            $currentMenu = $currentMenu->getItem($level);
         }
     }
 

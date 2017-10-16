@@ -40,7 +40,7 @@ services:
 extensions:
     autoRegister: Ublaboo\DirectoryRegister\DI\AutoRegisterExtension
     nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
-    menu: DK\Menu\DI\Extension
+    menu: Carrooi\Menu\DI\MenuExtension
 
 includes:
     - menu.neon

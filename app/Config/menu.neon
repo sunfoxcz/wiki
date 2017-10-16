@@ -1,18 +1,21 @@
 menu:
     default:
-        template:
+        templates:
             menu: %appDir%/Components/Menu/menu.latte
-            breadcrumb: %appDir%/Components/Menu/breadcrumb.latte
+            breadcrumbs: %appDir%/Components/Menu/breadcrumbs.latte
         items:
             wiki:
                 title: Wiki
-                target: Wiki:default
-                visual: FALSE
+                action: Wiki:default
+                visibility:
+                    menu: FALSE
             wikiEdit:
                 title: Wiki
-                target: WikiEdit:default
-                visual: FALSE
+                action: WikiEdit:default
+                visibility:
+                    menu: FALSE
             userCreate:
                 title: Create user
-                target: UserCreate:default
-                visual: FALSE
+                action: UserCreate:default
+                visibility:
+                    menu: FALSE

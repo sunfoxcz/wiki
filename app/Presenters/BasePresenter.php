@@ -2,6 +2,10 @@
 
 namespace App\Presenters;
 
+use Carrooi\Menu\IMenu;
+use Carrooi\Menu\MenuContainer;
+use Carrooi\Menu\UI\IMenuComponentFactory;
+use Carrooi\Menu\UI\MenuComponent;
 use Nette;
 
 
@@ -11,7 +15,13 @@ use Nette;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     /**
-     * @var \DK\Menu\UI\IControlFactory
+     * @var MenuContainer
+     * @inject
+     */
+    public $menuContainer;
+
+    /**
+     * @var IMenuComponentFactory
      * @inject
      */
     public $menuFactory;
@@ -29,20 +39,18 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     }
 
     /**
-     * @return \DK\Menu\UI\Control
+     * @return MenuComponent
      */
     protected function createComponentMenu()
     {
-        return $this->menuFactory->create();
+        return $this->menuFactory->create('default');
     }
 
     /**
-     * Basically just helper for IDE because of @return annotation
-     *
-     * @return \DK\Menu\Menu
+     * @return IMenu
      */
     protected function getMenu()
     {
-        return $this['menu']->getMenu();
+        return $this->menuContainer->getMenu('default');
     }
 }

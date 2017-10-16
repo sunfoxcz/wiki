@@ -1,17 +1,17 @@
-<ul class="nav navbar-nav" n:if="$menu->hasVisualItems()">
-    {foreach $menu->getItems() as $item}
-        {if $item->hasVisualItems()}
+<ul class="nav navbar-nav" n:if="$menu->hasVisibleItemsOnMenu()">
+    {foreach $menu->getVisibleItemsOnMenu() as $item}
+        {if $item->hasVisibleItemsOnMenu()}
             <li n:class="dropdown, $item->isActive() ? active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{$item->getTranslatedTitle()} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{$item->getRealTitle()} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li n:foreach="$item->getItems() as $subitem" n:if="$subitem->isVisual() && $subitem->isAllowed()" n:class="$subitem->isActive() ? active">
-                        <a href="{$subitem->getLink()}">{$subitem->getTranslatedTitle()}</a>
+                    <li n:foreach="$item->getVisibleItemsOnMenu() as $subitem" n:class="$subitem->isActive() ? active">
+                        <a href="{$subitem->getRealLink()}">{$subitem->getRealTitle()}</a>
                     </li>
                 </ul>
             </li>
         {else}
-            <li n:if="$item->isVisual() && $item->isAllowed()" n:class="$item->isActive() ? active">
-                <a href="{$item->getLink()}">{$item->getTranslatedTitle()}</a>
+            <li n:class="$item->isActive() ? active">
+                <a href="{$item->getRealLink()}">{$item->getRealTitle()}</a>
             </li>
         {/if}
     {/foreach}

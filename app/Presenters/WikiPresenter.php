@@ -3,10 +3,10 @@
 namespace App\Presenters;
 
 use App\Libs\Config;
+use Carrooi\Menu\IMenuItem;
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocParser;
 use League\CommonMark\HtmlRenderer;
-use Nette\Application\BadRequestException;
 
 
 final class WikiPresenter extends BasePresenter
@@ -48,8 +48,11 @@ final class WikiPresenter extends BasePresenter
         $currentMenu = $this->getMenu()->getItem('wiki');
         foreach (explode('/', $page) as $level) {
             $path[] = $level;
-            $currentMenu = $currentMenu->addItem($level, 'Wiki:default', ['page' => implode('/', $path)])
-                ->setVisual(FALSE);
+            $currentMenu->addItem($level, $level, function(IMenuItem $item) use ($path) {
+                $item->setMenuVisibility(FALSE);
+                $item->setAction('Wiki:default', ['page' => implode('/', $path)]);
+            });
+            $currentMenu = $currentMenu->getItem($level);
         }
     }
 
