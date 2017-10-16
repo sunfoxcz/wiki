@@ -1,5 +1,6 @@
 .breadcrumb li.pull-right:before {
     content: '';
+    padding: 0;
 }
 
 #wikiEditForm {
