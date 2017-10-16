@@ -5,6 +5,9 @@ namespace App\Presenters;
 use Nette;
 
 
+/**
+ * @property-read \Nette\Bridges\ApplicationLatte\Template|\stdClass $template
+ */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     /**
