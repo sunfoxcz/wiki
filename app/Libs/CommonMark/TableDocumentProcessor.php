@@ -6,7 +6,6 @@ use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocumentProcessorInterface;
 use Webuni\CommonMark\TableExtension\Table;
 
-
 final class TableDocumentProcessor implements DocumentProcessorInterface
 {
     public function processDocument(Document $document): void

@@ -7,7 +7,6 @@ use App\Libs\Config;
 use FilesystemIterator;
 use Nette\Application\UI\Form;
 
-
 final class UserCreatePresenter extends BasePresenter
 {
     /**
@@ -37,14 +36,14 @@ final class UserCreatePresenter extends BasePresenter
      */
     public function checkRequirements($element)
     {
-        $restricted = TRUE;
+        $restricted = true;
 
         if (!is_dir($this->config->userDir)) {
-            $restricted = FALSE;
+            $restricted = false;
         } else {
             $it = new FilesystemIterator($this->config->userDir, FilesystemIterator::SKIP_DOTS);
             if (!iterator_count($it)) {
-                $restricted = FALSE;
+                $restricted = false;
             }
         }
 

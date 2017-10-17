@@ -9,7 +9,6 @@ use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nextras;
 
-
 /**
  * @method onCreate(User $user)
  */
@@ -49,7 +48,7 @@ final class UserCreateFormFactory
             ->setRequired('Enter your password please');
 
         $form->addPassword('confirmation', 'Password confirmation')
-            ->setOmitted(TRUE)
+            ->setOmitted(true)
             ->addRule(Form::FILLED, 'Enter password once again for confirmation please.')
             ->addRule(Form::EQUAL, 'Passwords does not match. Try to fill them again please.', $form['password']);
 

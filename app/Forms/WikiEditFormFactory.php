@@ -8,7 +8,6 @@ use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nextras;
 
-
 /**
  * @method onSave()
  */

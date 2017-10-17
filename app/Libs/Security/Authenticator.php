@@ -7,7 +7,6 @@ use Nette\Security\IAuthenticator;
 use Nette\Security\IIdentity;
 use Nette\Security\Passwords;
 
-
 final class Authenticator implements IAuthenticator
 {
     /**
@@ -27,7 +26,7 @@ final class Authenticator implements IAuthenticator
      * @return IIdentity
      * @throws AuthenticationException
      */
-    function authenticate(array $credentials)
+    public function authenticate(array $credentials)
     {
         list($username, $password) = $credentials;
 

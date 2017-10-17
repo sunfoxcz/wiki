@@ -7,7 +7,6 @@ use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use Nextras;
 
-
 /**
  * @method onLoggedIn(Nette\Security\User $user)
  */
@@ -63,15 +62,14 @@ final class SignInFormFactory
     public function formSuccess(Form $form, ArrayHash $values)
     {
         if ($values->remember) {
-            $this->user->setExpiration('14 days', FALSE);
+            $this->user->setExpiration('14 days', false);
         } else {
-            $this->user->setExpiration('20 minutes', TRUE);
+            $this->user->setExpiration('20 minutes', true);
         }
 
         try {
             $this->user->login($values->username, $values->password);
             $this->onLoggedIn($this->user);
-
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError($e->getMessage());
         }

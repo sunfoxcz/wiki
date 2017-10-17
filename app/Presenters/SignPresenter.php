@@ -6,7 +6,6 @@ use App\Forms\SignInFormFactory;
 use App\Libs\Config;
 use FilesystemIterator;
 
-
 final class SignPresenter extends BasePresenter
 {
     /**
@@ -24,7 +23,7 @@ final class SignPresenter extends BasePresenter
 
     public function createComponentSignInForm()
     {
-        $this->signInFormFactory->onLoggedIn[] = function($user) {
+        $this->signInFormFactory->onLoggedIn[] = function ($user) {
             $this->redirect('Wiki:');
         };
         return $this->signInFormFactory->create();
@@ -44,7 +43,7 @@ final class SignPresenter extends BasePresenter
 
     public function actionOut()
     {
-        $this->getUser()->logout(TRUE);
+        $this->getUser()->logout(true);
         $this->redirect('Sign:in');
     }
 }

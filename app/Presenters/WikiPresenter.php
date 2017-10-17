@@ -55,8 +55,8 @@ final class WikiPresenter extends BasePresenter
         $currentMenu = $this->getMenu()->getItem('wiki');
         foreach (explode('/', $page) as $level) {
             $path[] = $level;
-            $currentMenu->addItem($level, $level, function(IMenuItem $item) use ($path) {
-                $item->setMenuVisibility(FALSE);
+            $currentMenu->addItem($level, $level, function (IMenuItem $item) use ($path) {
+                $item->setMenuVisibility(false);
                 $item->setAction('Wiki:default', ['page' => implode('/', $path)]);
             });
             $currentMenu = $currentMenu->getItem($level);
@@ -75,11 +75,11 @@ final class WikiPresenter extends BasePresenter
         return $this->wikiEditFormFactory->create($this->getParameter('page'), $this->document);
     }
 
-    public function actionDefault($page = NULL, $edit = FALSE)
+    public function actionDefault($page = null, $edit = false)
     {
         $file = $this->config->getPageFilePath($page);
         if (!is_file($file)) {
-            $edit = TRUE;
+            $edit = true;
         }
 
         if ($edit) {

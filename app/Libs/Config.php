@@ -4,7 +4,6 @@ namespace App\Libs;
 
 use Nette\Utils\ArrayHash;
 
-
 /**
  * @property string $dataDir
  * @property string $pageDir
@@ -20,7 +19,7 @@ final class Config extends ArrayHash
     {
         foreach ($arr as $key => $value) {
             if (is_array($value)) {
-                $this->$key = ArrayHash::from($value, TRUE);
+                $this->$key = ArrayHash::from($value, true);
             } else {
                 $this->$key = $value;
             }

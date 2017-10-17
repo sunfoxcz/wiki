@@ -7,7 +7,6 @@ use Nette\Neon\Neon;
 use Nette\Security\Passwords;
 use Nette\Utils\FileSystem;
 
-
 final class UserManager
 {
     /**

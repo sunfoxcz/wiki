@@ -8,7 +8,6 @@ use Carrooi\Menu\UI\IMenuComponentFactory;
 use Carrooi\Menu\UI\MenuComponent;
 use Nette;
 
-
 /**
  * @property-read \Nette\Bridges\ApplicationLatte\Template|\stdClass $template
  */

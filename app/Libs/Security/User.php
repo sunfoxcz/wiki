@@ -4,7 +4,6 @@ namespace App\Libs\Security;
 
 use Nette\Security\IIdentity;
 
-
 final class User implements IIdentity
 {
     /**

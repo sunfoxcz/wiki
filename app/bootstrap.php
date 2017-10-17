@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $configurator = new Nette\Configurator;
 
 if (getenv('NETTE_DEVEL') === '1') {
-    $configurator->setDebugMode(TRUE);
+    $configurator->setDebugMode(true);
 }
 
 $configurator->setTimeZone('Europe/Prague');
