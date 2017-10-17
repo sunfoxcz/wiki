@@ -55,11 +55,13 @@ final class WikiPresenter extends BasePresenter
         $currentMenu = $this->getMenu()->getItem('wiki');
         foreach (explode('/', $page) as $level) {
             $path[] = $level;
-            $currentMenu->addItem($level, $level, function (IMenuItem $item) use ($path) {
+            $name = str_replace('-', '_', $level);
+            $title = str_replace('_', ' ', $level);
+            $currentMenu->addItem($name, $title, function (IMenuItem $item) use ($path) {
                 $item->setMenuVisibility(false);
                 $item->setAction('Wiki:default', ['page' => implode('/', $path)]);
             });
-            $currentMenu = $currentMenu->getItem($level);
+            $currentMenu = $currentMenu->getItem($name);
         }
     }
 

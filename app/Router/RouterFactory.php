@@ -17,8 +17,7 @@ final class RouterFactory
     {
         $router = new RouteList;
 
-        $router[] = new Route('wiki[/<page [A-Za-z0-9_\-/]+>]', 'Wiki:default');
-        $router[] = new Route('wiki-edit[/<page [A-Za-z0-9_\-/]+>]', 'WikiEdit:default');
+        $router[] = new Route('wiki[/<page .+>]', 'Wiki:default');
         $router[] = new Route('sign/<action>', 'Sign:in');
         $router[] = new Route('user/create', 'UserCreate:default');
         $router[] = new Route('', 'Wiki:default', Route::ONE_WAY);
