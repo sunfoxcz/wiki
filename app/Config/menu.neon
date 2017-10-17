@@ -9,11 +9,6 @@ menu:
                 action: Wiki:default
                 visibility:
                     menu: FALSE
-            wikiEdit:
-                title: Wiki
-                action: WikiEdit:default
-                visibility:
-                    menu: FALSE
             userCreate:
                 title: Create user
                 action: UserCreate:default
