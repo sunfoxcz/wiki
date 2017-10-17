@@ -31,7 +31,7 @@
         <ol class="breadcrumb">
             {control menu:breadcrumbs}
             <li class="pull-right" n:if="$presenter->name === 'Wiki'">
-                [ <a n:href="WikiEdit: $presenter->getParameter('page')">Edit</a> ]
+                [ <a n:href="Wiki: page => $presenter->getParameter('page'), edit => TRUE">Edit</a> ]
             </li>
         </ol>
         {include content}
