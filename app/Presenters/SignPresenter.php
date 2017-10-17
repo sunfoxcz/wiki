@@ -20,7 +20,6 @@ final class SignPresenter extends BasePresenter
      */
     public $signInFormFactory;
 
-
     public function createComponentSignInForm()
     {
         $this->signInFormFactory->onLoggedIn[] = function ($user) {

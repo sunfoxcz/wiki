@@ -26,13 +26,15 @@ final class UserCreateFormFactory
      */
     private $userManager;
 
-
     public function __construct(UserManager $userManager)
     {
         $this->userManager = $userManager;
     }
 
-    public function create(): Form
+    /**
+     * @return Form
+     */
+    public function create()
     {
         $form = new Form;
         $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)

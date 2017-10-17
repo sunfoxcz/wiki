@@ -14,7 +14,6 @@ final class Authenticator implements IAuthenticator
      */
     private $userManager;
 
-
     public function __construct(UserManager $userManager)
     {
         $this->userManager = $userManager;

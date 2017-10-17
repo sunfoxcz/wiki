@@ -28,8 +28,12 @@ final class Config extends ArrayHash
 
     /**
      * Get Wiki page path on disk based on url path.
+     *
+     * @param null|string $wikiPath
+     *
+     * @return string
      */
-    public function getPageFilePath(?string $wikiPath): string
+    public function getPageFilePath($wikiPath)
     {
         if (!$wikiPath) {
             $wikiPath = $this->defaultPage;
@@ -38,7 +42,12 @@ final class Config extends ArrayHash
         return vsprintf('%s/%s.md', [$this->pageDir, $wikiPath]);
     }
 
-    public function getUserFilePath(string $username): string
+    /**
+     * @param string $username
+     *
+     * @return string
+     */
+    public function getUserFilePath($username)
     {
         return vsprintf('%s/%s.neon', [$this->userDir, $username]);
     }

@@ -4,11 +4,12 @@ namespace App\Forms;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Nette\Security\User;
 use Nette\Utils\ArrayHash;
 use Nextras;
 
 /**
- * @method onLoggedIn(Nette\Security\User $user)
+ * @method onLoggedIn(User $user)
  */
 final class SignInFormFactory
 {
@@ -20,14 +21,11 @@ final class SignInFormFactory
     public $onLoggedIn = [];
 
     /**
-     * @var Nette\Security\User
+     * @var User
      */
     private $user;
 
-    /**
-     * @param Nette\Security\User $user
-     */
-    public function __construct(Nette\Security\User $user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
@@ -55,10 +53,6 @@ final class SignInFormFactory
         return $form;
     }
 
-    /**
-     * @param Form      $form
-     * @param ArrayHash $values
-     */
     public function formSuccess(Form $form, ArrayHash $values)
     {
         if ($values->remember) {

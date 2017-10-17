@@ -21,7 +21,10 @@ final class UserCreatePresenter extends BasePresenter
      */
     public $userCreateFormFactory;
 
-    protected function createComponentUserCreateForm(): Form
+    /**
+     * @return Form
+     */
+    protected function createComponentUserCreateForm()
     {
         $this->userCreateFormFactory->onCreate[] = function ($identity) {
             $this->getUser()->login($identity);

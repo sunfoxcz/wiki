@@ -14,13 +14,18 @@ final class UserManager
      */
     private $config;
 
-
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
-    public function getData(string $username): array
+    /**
+     * @param string $username
+     *
+     * @return array
+     * @throws UserNotFoundException
+     */
+    public function getData($username)
     {
         $file = $this->config->getUserFilePath($username);
         if (!is_file($file)) {
@@ -30,14 +35,27 @@ final class UserManager
         return Neon::decode(FileSystem::read($file));
     }
 
-    public function getUser(string $username): User
+    /**
+     * @param string $username
+     *
+     * @return User
+     */
+    public function getUser($username)
     {
         $data = $this->getData($username);
 
         return new User($data['username'], $data['name'], $data['roles']);
     }
 
-    public function create(string $username, string $name, string $password): User
+    /**
+     * @param string $username
+     * @param string $name
+     * @param string $password
+     *
+     * @return User
+     * @throws UserExistsException
+     */
+    public function create($username, $name, $password)
     {
         $roles = ['admin'];
 
@@ -57,7 +75,11 @@ final class UserManager
         return new User($username, $name, $roles);
     }
 
-    public function changePassword(string $username, string $password): void
+    /**
+     * @param string $username
+     * @param string $password
+     */
+    public function changePassword($username, $password)
     {
         $data = $this->getData($username);
         $data['password'] = Passwords::hash($password);
@@ -66,11 +88,9 @@ final class UserManager
     }
 }
 
-
 final class UserExistsException extends \Exception
 {
 }
-
 
 final class UserNotFoundException extends \Exception
 {

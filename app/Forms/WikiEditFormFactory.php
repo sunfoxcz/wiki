@@ -31,7 +31,13 @@ final class WikiEditFormFactory
         $this->config = $config;
     }
 
-    public function create(?string $page, string $document): Form
+    /**
+     * @param null|string $page
+     * @param string      $document
+     *
+     * @return Form
+     */
+    public function create($page, $document)
     {
         $form = new Form;
         $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)
