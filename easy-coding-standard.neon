@@ -1,3 +1,0 @@
-includes:
-    - vendor/symplify/easy-coding-standard/config/php54-checkers.neon
-    - vendor/symplify/easy-coding-standard/config/psr2-checkers.neon

@@ -1,0 +1,16 @@
+imports:
+    - { resource: 'vendor/sunfoxcz/coding-standard/config/sunfox.yml' }
+
+parameters:
+    cache_directory: .ecs_cache
+    indentation: spaces
+    exclude_files:
+        - 'temp/cache/*'
+    exclude_checkers:
+        # For now
+        - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
+    skip:
+        # For now
+        PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff.NotCamelCaps: ~
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff.WriteOnlyProperty: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification: ~
