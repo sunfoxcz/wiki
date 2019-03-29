@@ -5,26 +5,31 @@ namespace App\Presenters;
 use App\Forms\UserCreateFormFactory;
 use App\Libs\Config;
 use FilesystemIterator;
+use Nette\Application\AbortException;
+use Nette\Application\ForbiddenRequestException;
+use Nette\Application\UI\ComponentReflection;
 use Nette\Application\UI\Form;
 
 final class UserCreatePresenter extends BasePresenter
 {
     /**
      * @var Config
-     * @inject
      */
-    public $config;
+    private $config;
 
     /**
      * @var UserCreateFormFactory
-     * @inject
      */
-    public $userCreateFormFactory;
+    private $userCreateFormFactory;
 
-    /**
-     * @return Form
-     */
-    protected function createComponentUserCreateForm()
+    public function __construct(Config $config, UserCreateFormFactory $userCreateFormFactory)
+    {
+        parent::__construct();
+        $this->config = $config;
+        $this->userCreateFormFactory = $userCreateFormFactory;
+    }
+
+    protected function createComponentUserCreateForm(): Form
     {
         $this->userCreateFormFactory->onCreate[] = function ($identity): void {
             $this->getUser()->login($identity);
@@ -35,7 +40,10 @@ final class UserCreatePresenter extends BasePresenter
     }
 
     /**
-     * @param \Nette\Application\UI\ComponentReflection $element
+     * @param ComponentReflection $element
+     *
+     * @throws ForbiddenRequestException
+     * @throws AbortException
      */
     public function checkRequirements($element): void
     {

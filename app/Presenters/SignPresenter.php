@@ -5,29 +5,39 @@ namespace App\Presenters;
 use App\Forms\SignInFormFactory;
 use App\Libs\Config;
 use FilesystemIterator;
+use Nette\Application\AbortException;
+use Nette\Application\UI\Form;
 
 final class SignPresenter extends BasePresenter
 {
     /**
      * @var Config
-     * @inject
      */
-    public $config;
+    private $config;
 
     /**
      * @var SignInFormFactory
-     * @inject
      */
-    public $signInFormFactory;
+    private $signInFormFactory;
 
-    public function createComponentSignInForm()
+    public function __construct(Config $config, SignInFormFactory $signInFormFactory)
     {
-        $this->signInFormFactory->onLoggedIn[] = function ($user): void {
+        parent::__construct();
+        $this->config = $config;
+        $this->signInFormFactory = $signInFormFactory;
+    }
+
+    public function createComponentSignInForm(): Form
+    {
+        $this->signInFormFactory->onLoggedIn[] = function (): void {
             $this->redirect('Wiki:');
         };
         return $this->signInFormFactory->create();
     }
 
+    /**
+     * @throws AbortException
+     */
     public function actionIn(): void
     {
         if (!is_dir($this->config->userDir)) {
@@ -40,6 +50,9 @@ final class SignPresenter extends BasePresenter
         }
     }
 
+    /**
+     * @throws AbortException
+     */
     public function actionOut(): void
     {
         $this->getUser()->logout(TRUE);

@@ -20,12 +20,9 @@ final class UserManager
     }
 
     /**
-     * @param string $username
-     *
-     * @return array
      * @throws UserNotFoundException
      */
-    public function getData($username)
+    public function getData(string $username): array
     {
         $file = $this->config->getUserFilePath($username);
         if (!is_file($file)) {
@@ -36,11 +33,9 @@ final class UserManager
     }
 
     /**
-     * @param string $username
-     *
-     * @return User
+     * @throws UserNotFoundException
      */
-    public function getUser($username)
+    public function getUser(string $username): User
     {
         $data = $this->getData($username);
 
@@ -48,14 +43,9 @@ final class UserManager
     }
 
     /**
-     * @param string $username
-     * @param string $name
-     * @param string $password
-     *
-     * @return User
      * @throws UserExistsException
      */
-    public function create($username, $name, $password)
+    public function create(string $username, string $name, string $password): User
     {
         $roles = ['admin'];
 
@@ -75,11 +65,7 @@ final class UserManager
         return new User($username, $name, $roles);
     }
 
-    /**
-     * @param string $username
-     * @param string $password
-     */
-    public function changePassword($username, $password): void
+    public function changePassword(string $username, string $password): void
     {
         $data = $this->getData($username);
         $data['password'] = Passwords::hash($password);

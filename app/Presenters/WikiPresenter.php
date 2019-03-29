@@ -14,32 +14,70 @@ final class WikiPresenter extends BasePresenter
 {
     /**
      * @var Config
-     * @inject
      */
-    public $config;
+    private $config;
 
     /**
      * @var DocParser
-     * @inject
      */
-    public $docParser;
+    private $docParser;
 
     /**
      * @var HtmlRenderer
-     * @inject
      */
-    public $htmlRenderer;
+    private $htmlRenderer;
 
     /**
      * @var WikiEditFormFactory
-     * @inject
      */
-    public $wikiEditFormFactory;
+    private $wikiEditFormFactory;
 
     /**
      * @var Document
      */
     private $document;
+
+    /**
+     * @var string
+     */
+    private $documentContent;
+
+    public function __construct(
+        Config $config,
+        DocParser $docParser,
+        HtmlRenderer $htmlRenderer,
+        WikiEditFormFactory $wikiEditFormFactory
+    ) {
+        parent::__construct();
+        $this->config = $config;
+        $this->docParser = $docParser;
+        $this->htmlRenderer = $htmlRenderer;
+        $this->wikiEditFormFactory = $wikiEditFormFactory;
+    }
+
+    public function actionDefault(?string $page = NULL, bool $edit = FALSE): void
+    {
+        $file = $this->config->getPageFilePath($page);
+        if (!is_file($file)) {
+            $edit = TRUE;
+        }
+
+        if ($edit) {
+            $this->documentContent = is_file($file) ? file_get_contents($file) : '';
+            $this->setView('edit');
+        } else {
+            $this->document = $this->docParser->parse(file_get_contents($file));
+        }
+    }
+
+    public function renderDefault(): void
+    {
+        $this->template->document = $this->htmlRenderer->renderBlock($this->document);
+    }
+
+    public function renderEdit(): void
+    {
+    }
 
     protected function startup(): void
     {
@@ -64,39 +102,12 @@ final class WikiPresenter extends BasePresenter
         }
     }
 
-    /**
-     * @return Form
-     */
-    protected function createComponentWikiEditForm()
+    protected function createComponentWikiEditForm(): Form
     {
         $this->wikiEditFormFactory->onSave[] = function (): void {
             $this->redirect('Wiki:', $this->getParameter('page'));
         };
 
-        return $this->wikiEditFormFactory->create($this->getParameter('page'), $this->document);
-    }
-
-    public function actionDefault($page = NULL, $edit = FALSE): void
-    {
-        $file = $this->config->getPageFilePath($page);
-        if (!is_file($file)) {
-            $edit = TRUE;
-        }
-
-        if ($edit) {
-            $this->document = is_file($file) ? file_get_contents($file) : '';
-            $this->setView('edit');
-        } else {
-            $this->document = $this->docParser->parse(file_get_contents($file));
-        }
-    }
-
-    public function renderDefault(): void
-    {
-        $this->template->document = $this->htmlRenderer->renderBlock($this->document);
-    }
-
-    public function renderEdit(): void
-    {
+        return $this->wikiEditFormFactory->create($this->getParameter('page'), $this->documentContent);
     }
 }

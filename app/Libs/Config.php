@@ -5,17 +5,14 @@ namespace App\Libs;
 use Nette\Utils\ArrayHash;
 
 /**
- * @property string $dataDir
- * @property string $pageDir
- * @property string $userDir
- * @property string $defaultPage
+ * @property-read string $dataDir
+ * @property-read string $pageDir
+ * @property-read string $userDir
+ * @property-read string $defaultPage
  */
 final class Config extends ArrayHash
 {
-    /**
-     * @param array $arr
-     */
-    public function __construct($arr)
+    public function __construct(array $arr)
     {
         foreach ($arr as $key => $value) {
             if (is_array($value)) {
@@ -28,12 +25,8 @@ final class Config extends ArrayHash
 
     /**
      * Get Wiki page path on disk based on url path.
-     *
-     * @param NULL|string $wikiPath
-     *
-     * @return string
      */
-    public function getPageFilePath($wikiPath)
+    public function getPageFilePath(?string $wikiPath): string
     {
         if (!$wikiPath) {
             $wikiPath = $this->defaultPage;
@@ -42,12 +35,7 @@ final class Config extends ArrayHash
         return vsprintf('%s/%s.md', [$this->pageDir, $wikiPath]);
     }
 
-    /**
-     * @param string $username
-     *
-     * @return string
-     */
-    public function getUserFilePath($username)
+    public function getUserFilePath(string $username): string
     {
         return vsprintf('%s/%s.neon', [$this->userDir, $username]);
     }

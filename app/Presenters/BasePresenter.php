@@ -6,12 +6,15 @@ use Carrooi\Menu\IMenu;
 use Carrooi\Menu\MenuContainer;
 use Carrooi\Menu\UI\IMenuComponentFactory;
 use Carrooi\Menu\UI\MenuComponent;
-use Nette;
+use Nette\Application\AbortException;
+use Nette\Application\ForbiddenRequestException;
+use Nette\Application\UI\ComponentReflection;
+use Nette\Application\UI\Presenter;
 
 /**
  * @property-read \Nette\Bridges\ApplicationLatte\Template|\stdClass $template
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends Presenter
 {
     /**
      * @var MenuContainer
@@ -26,7 +29,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public $menuFactory;
 
     /**
-     * @param \Nette\Application\UI\ComponentReflection $element
+     * @param ComponentReflection $element
+     *
+     * @throws ForbiddenRequestException
+     * @throws AbortException
      */
     public function checkRequirements($element): void
     {
@@ -37,18 +43,12 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    /**
-     * @return MenuComponent
-     */
-    protected function createComponentMenu()
+    protected function createComponentMenu(): MenuComponent
     {
         return $this->menuFactory->create('default');
     }
 
-    /**
-     * @return IMenu
-     */
-    protected function getMenu()
+    protected function getMenu(): IMenu
     {
         return $this->menuContainer->getMenu('default');
     }

@@ -2,18 +2,19 @@
 
 namespace App\Forms;
 
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\Security\AuthenticationException;
 use Nette\Security\User;
+use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
-use Nextras;
+use Nextras\Forms\Rendering\Bs3FormRenderer;
 
 /**
  * @method onLoggedIn(User $user)
  */
 final class SignInFormFactory
 {
-    use Nette\SmartObject;
+    use SmartObject;
 
     /**
      * @var callable[]
@@ -30,13 +31,10 @@ final class SignInFormFactory
         $this->user = $user;
     }
 
-    /**
-     * @return Form
-     */
-    public function create()
+    public function create(): Form
     {
         $form = new Form;
-        $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)
+        $form->setRenderer(new Bs3FormRenderer)
             ->getElementPrototype()->novalidate = 'novalidate';
 
         $form->addText('username', 'Username')
@@ -64,7 +62,7 @@ final class SignInFormFactory
         try {
             $this->user->login($values->username, $values->password);
             $this->onLoggedIn($this->user);
-        } catch (Nette\Security\AuthenticationException $e) {
+        } catch (AuthenticationException $e) {
             $form->addError($e->getMessage());
         }
     }

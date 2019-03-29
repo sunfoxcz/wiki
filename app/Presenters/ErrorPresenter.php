@@ -2,14 +2,16 @@
 
 namespace App\Presenters;
 
-use Nette;
-use Nette\Application\Responses;
+use Nette\Application\BadRequestException;
+use Nette\Application\Helpers;
+use Nette\Application\IPresenter;
+use Nette\Application\Request;
+use Nette\Application\Responses\CallbackResponse;
+use Nette\Application\Responses\ForwardResponse;
 use Tracy\ILogger;
 
-final class ErrorPresenter implements Nette\Application\IPresenter
+final class ErrorPresenter implements IPresenter
 {
-    use Nette\SmartObject;
-
     /**
      * @var ILogger
      */
@@ -20,17 +22,17 @@ final class ErrorPresenter implements Nette\Application\IPresenter
         $this->logger = $logger;
     }
 
-    public function run(Nette\Application\Request $request)
+    public function run(Request $request)
     {
         $exception = $request->getParameter('exception');
 
-        if ($exception instanceof Nette\Application\BadRequestException) {
-            [$module, , $sep] = Nette\Application\Helpers::splitName($request->getPresenterName());
-            return new Responses\ForwardResponse($request->setPresenterName($module . $sep . 'Error4xx'));
+        if ($exception instanceof BadRequestException) {
+            [$module, , $sep] = Helpers::splitName($request->getPresenterName());
+            return new ForwardResponse($request->setPresenterName($module . $sep . 'Error4xx'));
         }
 
         $this->logger->log($exception, ILogger::EXCEPTION);
-        return new Responses\CallbackResponse(function (): void {
+        return new CallbackResponse(function (): void {
             require __DIR__ . '/templates/Error/500.phtml';
         });
     }

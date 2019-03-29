@@ -3,17 +3,18 @@
 namespace App\Forms;
 
 use App\Libs\Config;
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
-use Nextras;
+use Nette\Utils\FileSystem;
+use Nextras\Forms\Rendering\Bs3FormRenderer;
 
 /**
  * @method onSave()
  */
 final class WikiEditFormFactory
 {
-    use Nette\SmartObject;
+    use SmartObject;
 
     /**
      * @var callable[]
@@ -30,16 +31,10 @@ final class WikiEditFormFactory
         $this->config = $config;
     }
 
-    /**
-     * @param NULL|string $page
-     * @param string      $document
-     *
-     * @return Form
-     */
-    public function create($page, $document)
+    public function create(?string $page, string $document): Form
     {
         $form = new Form;
-        $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)
+        $form->setRenderer(new Bs3FormRenderer)
             ->getElementPrototype()->novalidate = 'novalidate';
 
         $form->addHidden('page', $page);
@@ -60,7 +55,7 @@ final class WikiEditFormFactory
     public function formSuccess(Form $form, ArrayHash $values): void
     {
         $file = $this->config->getPageFilePath($values->page);
-        Nette\Utils\FileSystem::write($file, $values->document);
+        FileSystem::write($file, $values->document);
 
         $this->onSave();
     }

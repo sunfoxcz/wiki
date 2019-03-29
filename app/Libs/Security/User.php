@@ -21,37 +21,24 @@ final class User implements IIdentity
      */
     private $roles = [];
 
-    /**
-     * @param string $username
-     * @param string $name
-     */
-    public function __construct($username, $name, array $roles)
+    public function __construct(string $username, string $name, array $roles)
     {
         $this->username = $username;
         $this->name = $name;
         $this->roles = $roles;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->username;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return array
-     */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }

@@ -3,18 +3,19 @@
 namespace App\Forms;
 
 use App\Libs\Security\User;
+use App\Libs\Security\UserExistsException;
 use App\Libs\Security\UserManager;
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
-use Nextras;
+use Nextras\Forms\Rendering\Bs3FormRenderer;
 
 /**
  * @method onCreate(User $user)
  */
 final class UserCreateFormFactory
 {
-    use Nette\SmartObject;
+    use SmartObject;
 
     /**
      * @var callable[]
@@ -31,13 +32,10 @@ final class UserCreateFormFactory
         $this->userManager = $userManager;
     }
 
-    /**
-     * @return Form
-     */
-    public function create()
+    public function create(): Form
     {
         $form = new Form;
-        $form->setRenderer(new Nextras\Forms\Rendering\Bs3FormRenderer)
+        $form->setRenderer(new Bs3FormRenderer)
             ->getElementPrototype()->novalidate = 'novalidate';
 
         $form->addText('username', 'Username')
@@ -63,7 +61,12 @@ final class UserCreateFormFactory
 
     public function formSuccess(Form $form, ArrayHash $values): void
     {
-        $user = $this->userManager->create($values->username, $values->name, $values->password);
+        try {
+            $user = $this->userManager->create($values->username, $values->name, $values->password);
+        } catch (UserExistsException $e) {
+            $form->addError("User with username {$values->username} doesn't exist.");
+            return;
+        }
 
         $this->onCreate($user);
     }
