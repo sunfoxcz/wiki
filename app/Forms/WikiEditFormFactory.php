@@ -25,14 +25,13 @@ final class WikiEditFormFactory
      */
     private $config;
 
-
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
     /**
-     * @param null|string $page
+     * @param NULL|string $page
      * @param string      $document
      *
      * @return Form
@@ -58,7 +57,7 @@ final class WikiEditFormFactory
         return $form;
     }
 
-    public function formSuccess(Form $form, ArrayHash $values)
+    public function formSuccess(Form $form, ArrayHash $values): void
     {
         $file = $this->config->getPageFilePath($values->page);
         Nette\Utils\FileSystem::write($file, $values->document);

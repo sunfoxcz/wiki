@@ -50,7 +50,7 @@ final class UserCreateFormFactory
             ->setRequired('Enter your password please');
 
         $form->addPassword('confirmation', 'Password confirmation')
-            ->setOmitted(true)
+            ->setOmitted(TRUE)
             ->addRule(Form::FILLED, 'Enter password once again for confirmation please.')
             ->addRule(Form::EQUAL, 'Passwords does not match. Try to fill them again please.', $form['password']);
 
@@ -61,13 +61,9 @@ final class UserCreateFormFactory
         return $form;
     }
 
-    public function formSuccess(Form $form, ArrayHash $values)
+    public function formSuccess(Form $form, ArrayHash $values): void
     {
-        $user = $this->userManager->create(
-            $values->username,
-            $values->name,
-            $values->password
-        );
+        $user = $this->userManager->create($values->username, $values->name, $values->password);
 
         $this->onCreate($user);
     }

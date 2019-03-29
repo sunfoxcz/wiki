@@ -28,7 +28,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /**
      * @param \Nette\Application\UI\ComponentReflection $element
      */
-    public function checkRequirements($element)
+    public function checkRequirements($element): void
     {
         parent::checkRequirements($element);
 

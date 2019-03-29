@@ -19,7 +19,7 @@ final class Config extends ArrayHash
     {
         foreach ($arr as $key => $value) {
             if (is_array($value)) {
-                $this->$key = ArrayHash::from($value, true);
+                $this->$key = ArrayHash::from($value, TRUE);
             } else {
                 $this->$key = $value;
             }
@@ -29,7 +29,7 @@ final class Config extends ArrayHash
     /**
      * Get Wiki page path on disk based on url path.
      *
-     * @param null|string $wikiPath
+     * @param NULL|string $wikiPath
      *
      * @return string
      */

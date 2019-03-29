@@ -19,12 +19,11 @@ final class User implements IIdentity
     /**
      * @var array
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @param string $username
      * @param string $name
-     * @param array  $roles
      */
     public function __construct($username, $name, array $roles)
     {

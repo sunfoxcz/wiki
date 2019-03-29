@@ -27,7 +27,7 @@ final class Authenticator implements IAuthenticator
      */
     public function authenticate(array $credentials)
     {
-        list($username, $password) = $credentials;
+        [$username, $password] = $credentials;
 
         try {
             $data = $this->userManager->getData($username);

@@ -79,7 +79,7 @@ final class UserManager
      * @param string $username
      * @param string $password
      */
-    public function changePassword($username, $password)
+    public function changePassword($username, $password): void
     {
         $data = $this->getData($username);
         $data['password'] = Passwords::hash($password);

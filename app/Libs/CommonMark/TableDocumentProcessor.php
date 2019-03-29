@@ -8,7 +8,7 @@ use Webuni\CommonMark\TableExtension\Table;
 
 final class TableDocumentProcessor implements DocumentProcessorInterface
 {
-    public function processDocument(Document $document)
+    public function processDocument(Document $document): void
     {
         $walker = $document->walker();
         while ($event = $walker->next()) {

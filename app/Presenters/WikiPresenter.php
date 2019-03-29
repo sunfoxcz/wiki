@@ -41,8 +41,7 @@ final class WikiPresenter extends BasePresenter
      */
     private $document;
 
-
-    protected function startup()
+    protected function startup(): void
     {
         parent::startup();
 
@@ -57,8 +56,8 @@ final class WikiPresenter extends BasePresenter
             $path[] = $level;
             $name = str_replace('-', '_', $level);
             $title = str_replace('_', ' ', $level);
-            $currentMenu->addItem($name, $title, function (IMenuItem $item) use ($path) {
-                $item->setMenuVisibility(false);
+            $currentMenu->addItem($name, $title, function (IMenuItem $item) use ($path): void {
+                $item->setMenuVisibility(FALSE);
                 $item->setAction('Wiki:default', ['page' => implode('/', $path)]);
             });
             $currentMenu = $currentMenu->getItem($name);
@@ -70,18 +69,18 @@ final class WikiPresenter extends BasePresenter
      */
     protected function createComponentWikiEditForm()
     {
-        $this->wikiEditFormFactory->onSave[] = function () {
+        $this->wikiEditFormFactory->onSave[] = function (): void {
             $this->redirect('Wiki:', $this->getParameter('page'));
         };
 
         return $this->wikiEditFormFactory->create($this->getParameter('page'), $this->document);
     }
 
-    public function actionDefault($page = null, $edit = false)
+    public function actionDefault($page = NULL, $edit = FALSE): void
     {
         $file = $this->config->getPageFilePath($page);
         if (!is_file($file)) {
-            $edit = true;
+            $edit = TRUE;
         }
 
         if ($edit) {
@@ -92,12 +91,12 @@ final class WikiPresenter extends BasePresenter
         }
     }
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
         $this->template->document = $this->htmlRenderer->renderBlock($this->document);
     }
 
-    public function renderEdit()
+    public function renderEdit(): void
     {
     }
 }

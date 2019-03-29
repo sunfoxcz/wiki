@@ -22,13 +22,13 @@ final class SignPresenter extends BasePresenter
 
     public function createComponentSignInForm()
     {
-        $this->signInFormFactory->onLoggedIn[] = function ($user) {
+        $this->signInFormFactory->onLoggedIn[] = function ($user): void {
             $this->redirect('Wiki:');
         };
         return $this->signInFormFactory->create();
     }
 
-    public function actionIn()
+    public function actionIn(): void
     {
         if (!is_dir($this->config->userDir)) {
             $this->redirect('UserCreate:');
@@ -40,9 +40,9 @@ final class SignPresenter extends BasePresenter
         }
     }
 
-    public function actionOut()
+    public function actionOut(): void
     {
-        $this->getUser()->logout(true);
+        $this->getUser()->logout(TRUE);
         $this->redirect('Sign:in');
     }
 }

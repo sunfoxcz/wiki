@@ -5,7 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $configurator = new Nette\Configurator;
 
 if (getenv('NETTE_DEVEL') === '1') {
-    $configurator->setDebugMode(true);
+    $configurator->setDebugMode(TRUE);
 }
 
 $configurator->setTimeZone('Europe/Prague');
@@ -18,6 +18,4 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__ . '/Config/config.neon');
 $configurator->addConfig(__DIR__ . '/Config/config.local.neon');
 
-$container = $configurator->createContainer();
-
-return $container;
+return $configurator->createContainer();

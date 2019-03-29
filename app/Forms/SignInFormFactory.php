@@ -53,12 +53,12 @@ final class SignInFormFactory
         return $form;
     }
 
-    public function formSuccess(Form $form, ArrayHash $values)
+    public function formSuccess(Form $form, ArrayHash $values): void
     {
         if ($values->remember) {
-            $this->user->setExpiration('14 days', false);
+            $this->user->setExpiration('14 days', FALSE);
         } else {
-            $this->user->setExpiration('20 minutes', true);
+            $this->user->setExpiration('20 minutes', TRUE);
         }
 
         try {

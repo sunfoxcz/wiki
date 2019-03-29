@@ -26,7 +26,7 @@ final class UserCreatePresenter extends BasePresenter
      */
     protected function createComponentUserCreateForm()
     {
-        $this->userCreateFormFactory->onCreate[] = function ($identity) {
+        $this->userCreateFormFactory->onCreate[] = function ($identity): void {
             $this->getUser()->login($identity);
             $this->redirect('Wiki:');
         };
@@ -37,16 +37,16 @@ final class UserCreatePresenter extends BasePresenter
     /**
      * @param \Nette\Application\UI\ComponentReflection $element
      */
-    public function checkRequirements($element)
+    public function checkRequirements($element): void
     {
-        $restricted = true;
+        $restricted = TRUE;
 
         if (!is_dir($this->config->userDir)) {
-            $restricted = false;
+            $restricted = FALSE;
         } else {
             $it = new FilesystemIterator($this->config->userDir, FilesystemIterator::SKIP_DOTS);
             if (!iterator_count($it)) {
-                $restricted = false;
+                $restricted = FALSE;
             }
         }
 
