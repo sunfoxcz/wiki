@@ -1,12 +1,13 @@
 {
     "name": "sunfoxcz/foxywiki",
-    "description": "Nette: Enhanced Web Project",
+    "description": "Simple database-less wiki built using Nette framework",
     "type": "project",
     "license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
     "authors": [
         {
             "name": "Tomas Jacik",
-            "homepage": "https://tomasjacik.cz"
+            "email": "tomas.jacik@sunfox.cz",
+            "homepage": "https://sunfox.cz"
         }
     ],
     "require": {
