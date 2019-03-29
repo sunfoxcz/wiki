@@ -11,7 +11,5 @@ Simple database-less Wiki app built using [Nette Framework](https://nette.org/)
 ## Installation
 
 ```bash
-git clone https://github.com/sunfoxcz/wiki.git
-cd wiki
-composer install --prefer-dist --no-dev --no-suggest --optimize-autoloader
+composer create-project sunfoxcz/foxywiki
 ```
