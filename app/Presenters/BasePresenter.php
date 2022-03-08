@@ -2,10 +2,10 @@
 
 namespace App\Presenters;
 
-use Carrooi\Menu\IMenu;
-use Carrooi\Menu\MenuContainer;
-use Carrooi\Menu\UI\IMenuComponentFactory;
-use Carrooi\Menu\UI\MenuComponent;
+use Contributte\MenuControl\IMenu;
+use Contributte\MenuControl\MenuContainer;
+use Contributte\MenuControl\UI\IMenuComponentFactory;
+use Contributte\MenuControl\UI\MenuComponent;
 use Nette\Application\AbortException;
 use Nette\Application\ForbiddenRequestException;
 use Nette\Application\UI\ComponentReflection;
