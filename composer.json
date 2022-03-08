@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": ">=7.1 <8.1",
         "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
         "nette/caching": "^2.5",
@@ -25,15 +25,21 @@
         "latte/latte": "^2.4",
         "tracy/tracy": "^2.4",
         "nextras/forms": "^2.0",
-        "carrooi/nette-menu": "^2.1",
+        "contributte/menu-control": "^2.1",
         "league/commonmark": "^0.18",
         "webuni/commonmark-table-extension": "^0.9"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
+        "roave/security-advisories": "dev-latest",
         "sunfoxcz/coding-standard": "dev-master",
         "nette/tester": "^2.2"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "ocramius/package-versions": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }

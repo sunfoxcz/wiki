@@ -35,7 +35,7 @@ services:
 
 extensions:
     nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
-    menu: Carrooi\Menu\DI\MenuExtension
+    menu: Contributte\MenuControl\DI\MenuExtension
 
 includes:
     - menu.neon

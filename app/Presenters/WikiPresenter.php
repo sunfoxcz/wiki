@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Forms\WikiEditFormFactory;
 use App\Libs\Config;
-use Carrooi\Menu\IMenuItem;
+use Contributte\MenuControl\IMenuItem;
 use League\CommonMark\Block\Element\Document;
 use League\CommonMark\DocParser;
 use League\CommonMark\HtmlRenderer;
