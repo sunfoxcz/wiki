@@ -6,9 +6,10 @@ use App\Libs\Security\User;
 use App\Libs\Security\UserExistsException;
 use App\Libs\Security\UserManager;
 use Nette\Application\UI\Form;
+use Nette\Security\Passwords;
 use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
-use Nextras\Forms\Rendering\Bs3FormRenderer;
+use Nextras\FormsRendering\Renderers\Bs3FormRenderer;
 
 /**
  * @method onCreate(User $user)
@@ -27,9 +28,15 @@ final class UserCreateFormFactory
      */
     private $userManager;
 
-    public function __construct(UserManager $userManager)
+    /**
+     * @var Passwords
+     */
+    private $passwords;
+
+    public function __construct(UserManager $userManager, Passwords $passwords)
     {
         $this->userManager = $userManager;
+        $this->passwords = $passwords;
     }
 
     public function create(): Form
@@ -62,7 +69,8 @@ final class UserCreateFormFactory
     public function formSuccess(Form $form, ArrayHash $values): void
     {
         try {
-            $user = $this->userManager->create($values->username, $values->name, $values->password);
+            $password = $this->passwords->hash($values->password);
+            $user = $this->userManager->create($values->username, $values->name, $password);
         } catch (UserExistsException $e) {
             $form->addError("User with username {$values->username} doesn't exist.");
             return;

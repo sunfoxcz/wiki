@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App;
+namespace App\Router;
 
 use Nette\Application\IRouter;
 use Nette\Application\Routers\Route;
@@ -15,10 +15,10 @@ final class RouterFactory
     {
         $router = new RouteList;
 
-        $router[] = new Route('wiki[/<page .+>]', 'Wiki:default');
-        $router[] = new Route('sign/<action>', 'Sign:in');
-        $router[] = new Route('user/create', 'UserCreate:default');
-        $router[] = new Route('', 'Wiki:default', Route::ONE_WAY);
+        $router->addRoute('wiki[/<page .+>]', 'Wiki:default');
+        $router->addRoute('sign/<action>', 'Sign:in');
+        $router->addRoute('user/create', 'UserCreate:default');
+        $router->addRoute('', 'Wiki:default', Route::ONE_WAY);
 
         return $router;
     }

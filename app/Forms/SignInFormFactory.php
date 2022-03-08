@@ -7,7 +7,7 @@ use Nette\Security\AuthenticationException;
 use Nette\Security\User;
 use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
-use Nextras\Forms\Rendering\Bs3FormRenderer;
+use Nextras\FormsRendering\Renderers\Bs3FormRenderer;
 
 /**
  * @method onLoggedIn(User $user)

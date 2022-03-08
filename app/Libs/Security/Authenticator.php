@@ -13,9 +13,15 @@ final class Authenticator implements IAuthenticator
      */
     private $userManager;
 
-    public function __construct(UserManager $userManager)
+    /**
+     * @var Passwords
+     */
+    private $passwords;
+
+    public function __construct(UserManager $userManager, Passwords $passwords)
     {
         $this->userManager = $userManager;
+        $this->passwords = $passwords;
     }
 
     /**
@@ -32,12 +38,12 @@ final class Authenticator implements IAuthenticator
             throw new AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
         }
 
-        if (!Passwords::verify($password, $data['password'])) {
+        if (!$this->passwords->verify($password, $data['password'])) {
             throw new AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
         }
 
-        if (!Passwords::needsRehash($data['password'])) {
-            $this->userManager->changePassword($username, $password);
+        if (!$this->passwords->needsRehash($data['password'])) {
+            $this->userManager->changePassword($username, $this->passwords->hash($password));
         }
 
         return $user;

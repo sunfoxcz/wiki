@@ -8,18 +8,28 @@ parameters:
 application:
     errorPresenter: Error
     mapping:
-        *: App\*Module\Presenters\*Presenter
+        *: [App, Modules\*, Presenters\*Presenter]
+
+di:
+    export:
+        parameters: no
+        tags: no
+        types: no
+
+latte:
+    macros:
+        - Nextras\FormsRendering\LatteMacros\Bs3InputMacros::install
 
 session:
     expiration: 14 days
 
 services:
-    router: App\RouterFactory::createRouter
+    router: App\Router\RouterFactory::createRouter
 
     commonMarkTableExtension: Webuni\CommonMark\TableExtension\TableExtension
     commonMarkTableDocumentProcessor: App\Libs\CommonMark\TableDocumentProcessor
     commonMarkEnvironment:
-        class: League\CommonMark\Environment::createCommonMarkEnvironment()
+        factory: League\CommonMark\Environment::createCommonMarkEnvironment()
         setup:
             - addExtension( @commonMarkTableExtension )
             - addDocumentProcessor( @commonMarkTableDocumentProcessor )
@@ -34,7 +44,6 @@ services:
     - App\Forms\WikiEditFormFactory
 
 extensions:
-    nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
     menu: Contributte\MenuControl\DI\MenuExtension
 
 includes:

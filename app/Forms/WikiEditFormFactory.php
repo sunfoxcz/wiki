@@ -7,7 +7,7 @@ use Nette\Application\UI\Form;
 use Nette\SmartObject;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\FileSystem;
-use Nextras\Forms\Rendering\Bs3FormRenderer;
+use Nextras\FormsRendering\Renderers\Bs3FormRenderer;
 
 /**
  * @method onSave()

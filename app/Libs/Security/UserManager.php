@@ -57,7 +57,7 @@ final class UserManager
         $data = [
             'username' => $username,
             'name' => $name,
-            'password' => Passwords::hash($password),
+            'password' => $password,
             'roles' => $roles,
         ];
         FileSystem::write($file, Neon::encode($data));
@@ -68,7 +68,7 @@ final class UserManager
     public function changePassword(string $username, string $password): void
     {
         $data = $this->getData($username);
-        $data['password'] = Passwords::hash($password);
+        $data['password'] = $password;
 
         FileSystem::write($this->config->getUserFilePath($username), Neon::encode($data));
     }
