@@ -1,0 +1,28 @@
+version: '3'
+services:
+  nginx:
+    container_name: wiki-nginx
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - .:/app
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/fastcgi_params:/etc/nginx/fastcgi_params
+      - ./docker/nginx/dev.crt:/etc/nginx/nginx.crt
+      - ./docker/nginx/dev.key:/etc/nginx/nginx.key
+    links:
+      - app
+
+  app:
+    container_name: wiki-app
+    image: sunfoxcz/php:7.3-fpm
+    working_dir: /app
+    environment:
+      - NETTE_DEVEL=1
+    volumes:
+      - .:/app
+      - ./docker/php/wiki.conf:/etc/php/7.3/fpm/pool.d/www.conf
+    links:
+      - mysql

@@ -13,3 +13,18 @@ Simple database-less Wiki app built using [Nette Framework](https://nette.org/)
 ```bash
 composer create-project sunfoxcz/foxywiki
 ```
+
+## Development
+
+Run:
+```bash
+docker-compose up
+```
+
+Add to `/etc/hosts`:
+```bash
+127.0.0.1 wiki.test
+```
+
+Point your browser to `https://wiki.test/`. Certificate is self-signed,
+so you need to accept security warning.
