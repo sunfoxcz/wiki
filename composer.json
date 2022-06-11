@@ -24,8 +24,7 @@
         "tracy/tracy": "^2.8",
         "nextras/forms-rendering": "^1.1",
         "contributte/menu-control": "^2.2",
-        "league/commonmark": "^0.18",
-        "webuni/commonmark-table-extension": "^0.9"
+        "league/commonmark": "^2.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

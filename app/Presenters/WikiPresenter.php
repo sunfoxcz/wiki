@@ -5,9 +5,8 @@ namespace App\Presenters;
 use App\Forms\WikiEditFormFactory;
 use App\Libs\Config;
 use Contributte\MenuControl\IMenuItem;
-use League\CommonMark\Block\Element\Document;
-use League\CommonMark\DocParser;
-use League\CommonMark\HtmlRenderer;
+use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Output\RenderedContentInterface;
 use Nette\Application\UI\Form;
 
 final class WikiPresenter extends BasePresenter
@@ -18,14 +17,9 @@ final class WikiPresenter extends BasePresenter
     private $config;
 
     /**
-     * @var DocParser
+     * @var MarkdownConverter
      */
-    private $docParser;
-
-    /**
-     * @var HtmlRenderer
-     */
-    private $htmlRenderer;
+    private $markdownConverter;
 
     /**
      * @var WikiEditFormFactory
@@ -33,7 +27,7 @@ final class WikiPresenter extends BasePresenter
     private $wikiEditFormFactory;
 
     /**
-     * @var Document
+     * @var RenderedContentInterface
      */
     private $document;
 
@@ -44,14 +38,12 @@ final class WikiPresenter extends BasePresenter
 
     public function __construct(
         Config $config,
-        DocParser $docParser,
-        HtmlRenderer $htmlRenderer,
+        MarkdownConverter $markdownConverter,
         WikiEditFormFactory $wikiEditFormFactory
     ) {
         parent::__construct();
         $this->config = $config;
-        $this->docParser = $docParser;
-        $this->htmlRenderer = $htmlRenderer;
+        $this->markdownConverter = $markdownConverter;
         $this->wikiEditFormFactory = $wikiEditFormFactory;
     }
 
@@ -66,13 +58,13 @@ final class WikiPresenter extends BasePresenter
             $this->documentContent = is_file($file) ? file_get_contents($file) : '';
             $this->setView('edit');
         } else {
-            $this->document = $this->docParser->parse(file_get_contents($file));
+            $this->document = $this->markdownConverter->convert(file_get_contents($file));
         }
     }
 
     public function renderDefault(): void
     {
-        $this->template->document = $this->htmlRenderer->renderBlock($this->document);
+        $this->template->document = $this->document;
     }
 
     public function renderEdit(): void

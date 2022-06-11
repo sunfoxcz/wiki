@@ -26,17 +26,16 @@ session:
 services:
     router: App\Router\RouterFactory::createRouter
 
-    commonMarkTableExtension: Webuni\CommonMark\TableExtension\TableExtension
-    commonMarkTableDocumentProcessor: App\Libs\CommonMark\TableDocumentProcessor
-    commonMarkEnvironment:
-        factory: League\CommonMark\Environment::createCommonMarkEnvironment()
+    commonMark.coreExtension: League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension
+    commonMark.tableExtension: App\Libs\CommonMark\Table\TableExtension
+    commonMark.environment:
+        factory: League\CommonMark\Environment\Environment()
         setup:
-            - addExtension( @commonMarkTableExtension )
-            - addDocumentProcessor( @commonMarkTableDocumentProcessor )
-    - League\CommonMark\DocParser
-    - League\CommonMark\HtmlRenderer
+            - addExtension(@commonMark.coreExtension)
+            - addExtension(@commonMark.tableExtension)
+    - League\CommonMark\MarkdownConverter(@commonMark.environment)
 
-    - App\Libs\Config( %config% )
+    - App\Libs\Config(%config%)
     - App\Libs\Security\Authenticator
     - App\Libs\Security\UserManager
     - App\Forms\SignInFormFactory
