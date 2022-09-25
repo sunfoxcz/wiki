@@ -4,4 +4,4 @@ docker run --rm -it \
     -v $(pwd):/app \
     --workdir /app \
     --user $(id -u):$(id -g) \
-    sunfoxcz/php:7.4-cli composer "$@"
+    sunfoxcz/php:8.1-cli composer "$@"
