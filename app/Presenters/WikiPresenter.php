@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Forms\WikiEditFormFactory;
 use App\Libs\Config;
+use Contributte\MenuControl\Config\MenuItemAction;
 use Contributte\MenuControl\IMenuItem;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Output\RenderedContentInterface;
@@ -88,7 +89,10 @@ final class WikiPresenter extends BasePresenter
             $title = str_replace('_', ' ', $level);
             $currentMenu->addItem($name, $title, function (IMenuItem $item) use ($path): void {
                 $item->setMenuVisibility(FALSE);
-                $item->setAction('Wiki:default', ['page' => implode('/', $path)]);
+                $item->setAction(MenuItemAction::fromArray([
+                    'target' => 'Wiki:default',
+                    'parameters' => ['page' => implode('/', $path)],
+                ]));
             });
             $currentMenu = $currentMenu->getItem($name);
         }
