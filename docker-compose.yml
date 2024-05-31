@@ -17,10 +17,10 @@ services:
 
   app:
     container_name: wiki-app
-    image: sunfoxcz/php:8.2-fpm
+    image: sunfoxcz/php:8.3-fpm
     working_dir: /app
     environment:
       - NETTE_DEVEL=1
     volumes:
       - .:/app
-      - ./docker/php/wiki.conf:/etc/php/8.2/fpm/pool.d/www.conf
+      - ./docker/php/wiki.conf:/etc/php/8.3/fpm/pool.d/www.conf
