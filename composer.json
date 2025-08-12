@@ -12,24 +12,24 @@
     ],
     "require": {
         "php": ">=7.2",
-        "nette/application": "^3.1.8",
-        "nette/bootstrap": "^3.1.4",
-        "nette/caching": "^3.1.4",
-        "nette/di": "^3.1.0",
-        "nette/forms": "^3.1.8",
-        "nette/http": "^3.2.0",
-        "nette/security": "^3.1.6",
-        "nette/utils": "^3.2.8",
+        "nette/application": "^3.2.8",
+        "nette/bootstrap": "^3.2.0",
+        "nette/caching": "^3.4.0",
+        "nette/di": "^3.2.0",
+        "nette/forms": "^3.2.8",
+        "nette/http": "^3.3.0",
+        "nette/security": "^3.2.6",
+        "nette/utils": "^4.0.0",
         "latte/latte": "^3.0.4",
-        "tracy/tracy": "^2.9.5",
+        "tracy/tracy": "^2.10.0",
         "nextras/forms-rendering": "@dev",
-        "contributte/menu-control": "^3.0.0",
+        "contributte/menu-control": "^3.2.0",
         "league/commonmark": "^2.3.8"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "sunfoxcz/coding-standard": "dev-master",
-        "nette/tester": "^2.4.3"
+        "nette/tester": "^2.5.0"
     },
     "autoload": {
         "psr-4": {
